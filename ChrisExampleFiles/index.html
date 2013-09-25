@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-do List</title>
+    
+    <!-- link to css file -->
+    <link rel="stylesheet" type="text/css" href="_css/style.css" />
+    <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+    <link href="_css/style.css" rel="stylesheet" type="text/css">
+    <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+
+    <!-- link to javascript files -->
+    <script src="_js/jquery-1.10.2.min.js"></script>
+    <script src="_js/script.js"></script>    
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        
+
+
+</head>
+<body>
+    <div class="container">
+        <div id="bucket">
+				<div class="page-header">
+					<div id="title">
+						<h1> To Do List</h1>
+					</div>
+				</div>          
+							
+				<div class="row">                
+						<!-- the to-do list -->
+						<div class="col-md-2 ">							
+                            <form id="tag_form">
+                                <label>Enter Tag <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="tag_request" id="tag_request" type="text" placeholder="Enter Tag to Look up">
+                                <button id="submit_tag_button"> press me </button>
+                            </form>
+						</div>                    
+						<div class="col-md-5 " id="carousel">
+                            <button id="shift_left"> Shift Left </button>
+                            <button id="shift_right"> Shift Right </button>
+                            <ul id="Elements">
+
+							</ul>
+						</div>                    
+						<!-- form to add an item to the list -->
+						<div class="col-md-5 ">
+                            <h3> Add New Entry</h3>
+							<form id="todo-form">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label>Title <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                        </td>
+                                        <td>
+                                            <input name="title_input" id="title_input" type="text" placeholder="Enter Title">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>URL <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                        </td>
+                                        <td>
+                                            <input name="url_input" id="url_input" type="text" placeholder="URL">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Notes <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                        </td>
+                                        <td>
+                                            <input name="notes_input" id="notes_input" type="text" placeholder="Add Notes">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Tags <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                        </td>
+                                        <td>
+                                            <input name="tags_input" id="notes_input" type="text" placeholder="IOLab_Memex, Tag_A">
+                                        </td>
+                                    </tr>
+                                </table>
+								<button id="submit_button"> press me </button>
+							</form>
+                            <br />
+                            <form id="delete_form">
+
+                                <h3>Delete Stuff</h3>
+                                <label>Tags <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="delete_input" id="delete_input" type="text" >
+                                <button id="submit_delte_button_"> press me </button>
+                            </form>
+
+						</div>
+				</div>           
+				
+	
+        </div>
+    </div>
+</body>
+</html>
