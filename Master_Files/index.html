@@ -2,10 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-            <title>With Bootstrap</title>
+            <title>IOLab | Memex</title>
             <link rel="stylesheet" href="css/bootstrap.min.css">
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"></script>')</script>
+
                 <script src="js/bootstrap.min.js"></script>
+                <script src="js/memex.js"></script> 
     </head>
     
     <body>
@@ -19,27 +22,61 @@
               
             </div><!-- .hero-unit -->
             <form id="load-bookmarks" method="get">
-                <h3 id="enter_a_delicious_username">Enter a Delicious Username:</h3>
+                <p id="enter_a_delicious_username">Enter Your Delicious Username:
                 <input type="text" name="username" id="username" value=""/>
-                <input type="submit" value="Get Bookmarks"/>
+                    <input type="submit" value="Get Bookmarks"/></p>
             </form>
             
+            
             <div class="row">
-                <div class="span4">
-                    <h2>Box Number 1</h2>
-                    <p><ul></ul></p>   <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                <!-- Tag Cloud to be displayed here -->
+                <div class="span9">
+                    <h2>My Tags</h2>
+                    <p></p>   
                 </div><!-- .span4 -->
                 
-                <div class="span4">
-                    <h2>Box Number 2</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                <div class="span8">
+                    <h2>My Info Trail</h2>
+                    <!--  Carousel - consult the Twitter Bootstrap docs at
+      http://twitter.github.com/bootstrap/javascript.html#carousel -->
+                    <div id="this-carousel-id" class="carousel slide"><!-- class of slide for animation -->
+                        <div class="carousel-inner">
+                            <div class="item active"><!-- class of active since it's the first item -->
+                                <img src="http://placehold.it/1200x480" alt="" />
+                                <div class="carousel-caption">
+                                    <p>Caption text here</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="http://placehold.it/1200x480" alt="" />
+                                <div class="carousel-caption">
+                                    <p>Caption text here</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="http://placehold.it/1200x480" alt="" />
+                                <div class="carousel-caption">
+                                    <p>Caption text here</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="http://placehold.it/1200x480" alt="" />
+                                <div class="carousel-caption">
+                                    <p>Caption text here</p>
+                                </div>
+                            </div>
+                        </div><!-- /.carousel-inner -->
+                        <!--  Next and Previous controls below
+        href values must reference the id for this carousel -->
+                        <a class="carousel-control left" href="#this-carousel-id" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#this-carousel-id" data-slide="next">&rsaquo;</a>
+                    </div><!-- /.carousel -->
                 </div><!-- .span4 -->
                 
-                <div class="span4">
-                    <h2>Box Number 3</h2>
+                <div class="span8">
+                    <h2>What the Universe Thinks!</h2>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                    <input type="submit" class="btn btn-success active" value="Add This Tag"/>
                 </div><!-- .span4 -->
                 
             </div><!-- .row -->
