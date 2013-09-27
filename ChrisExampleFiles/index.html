@@ -33,8 +33,17 @@
 							
 				<div class="row">                
 						<!-- the to-do list -->
-						<div class="col-md-4 ">							
-                            <h3> Generate URLs</h3>
+						<div class="col-md-4 ">
+                            <h4> Generate Tags</h4>							
+                            <p> This form takes username and generates list of tags</p>
+                            <form id="tag_form">
+                                <label>Enter Tag <img src="_images/tooltip.gif" alt="" title="Enter username" /></label>
+                                <input name="tag_request_username" id="tag_request_username" type="text" placeholder="Enter Tag to Look up" value="superegoforever">
+                                <button id="submit_tag_button"> press me </button>
+
+                            </form>
+
+                            <h4> Generate URLs</h4>
                             <p> This form section takes in a username and tag and generates a list of associated urls. Look in console for example output</p>
                             <form id="url_form">
                                 <label>Enter Username <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
@@ -44,8 +53,8 @@
                                 <button id="submit_tag_button"> press me </button>
                             </form>
                             <br />
-                            <h3> Generate Popular</h3>
-                            <p> This form section takes in a username and tag and generates a list of associated urls. Look in console for example output</p>
+                            <h4> Generate Popular</h4>
+                            <p> This form section takes in a username, password, url and generates associated tags Look in console for example output</p>
                             <form id="popular_form">
                                 <label>Enter Username <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
                                 <input name="popular_request_username" id="popular_request_username" type="text" placeholder="Enter user" value="superegoforever">

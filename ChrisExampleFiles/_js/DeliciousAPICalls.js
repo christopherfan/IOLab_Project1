@@ -42,7 +42,8 @@ function getAllTags(username) {
 }
 
 function getAllTags_APICall(username) {
-    var url_html = "http://feeds.delicious.com/v2/json/tags/"+username
+    var url_html = "http://feeds.delicious.com/v2/json/tags/" + username
+    
     return $.ajax({
         type: "GET",
         dataType: "jsonp",

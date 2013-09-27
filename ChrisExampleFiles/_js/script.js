@@ -1,3 +1,12 @@
+/*
+    Example event handlers invoking the API Calls
+
+    Find: 
+
+*/
+
+
+
 $(document).ready(function () {
 
     console.log("ready");
@@ -32,22 +41,39 @@ $(document).ready(function () {
         return false;
     });
 
-    //////////// Example using getURLs(username, tag_name)
+    ///////////// Example using getAllTags_APICall ##getAllTags
+    $(document).on('submit', "#tag_form", function () {
+        var username = $("#tag_request_username").val();
+
+        getAllTags_APICall(username).done(function (data) {
+            var string_list = [];
+            $.each(data, function (i, val) {
+                string_list.push(i + "("+val+")");
+            });
+            
+            printList("#Elements",string_list);
+        });
+
+        return false;
+    });
+
+
+    //////////// Example using getURLs(username, tag_name) ##getURLs
     $(document).on('submit', "#url_form", function () {
         var tag_name = $("#url_request").val();
         var username = $("#url_request_username").val();
-        var url_list =[]
+        
 
         // This is the promise function using the get URL_APICall
-        
-        var deferred_object = getURLs_APICall(username, tag_name);
-        deferred_object.done(function (data) {
+                
+        getURLs_APICall(username, tag_name).done(function (data) {
+            var url_list = []
             for (var i = 0; i < data.length; i++) {
                // console.log(data[i].u);
                 url_list.push(data[i].u);
             }
             console.log(url_list);
-            //printList("#Elements",url_list);
+            printList("#Elements",url_list);
         });
 
 
@@ -55,7 +81,7 @@ $(document).ready(function () {
     });
 
 
-    //// How to get Popular Tags
+    //// How to get Popular Tags ##getSuggestedTags
     $(document).on('submit', "#popular_form", function () {
         var username = $("#popular_request_username").val();
         var pass = $("#popular_request_password").val();
@@ -114,7 +140,7 @@ $(document).ready(function () {
 });
 function printList(body_div, entries) {
     
-    $(body_div).html("");
+    $(body_div).html("");    
     jQuery.each(entries, function (i, val) {
         $(body_div).append("<li>" + val + "</li>");
     });
