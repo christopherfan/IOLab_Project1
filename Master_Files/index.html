@@ -4,10 +4,10 @@
         <meta charset="utf-8">
             <title>IOLab | Memex</title>
             <link rel="stylesheet" href="css/bootstrap.min.css">
-                <script src="js/jquery-1.10.2.min.js"></script>
-               
-                <script src="js/bootstrap.min.js"></script>
-                <script src="js/memex.js"></script> 
+                <link rel="stylesheet" href="css/bootstrap.css">
+            <link rel="stylesheet" type="text/css" href="css/main.css" />
+              
+             
     </head>
     
     <body>
@@ -36,11 +36,18 @@
                 
                 <div class="span8">
                     <h2>My Info Trail</h2>
+                    <div id="trails">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#">Test</a></li>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </div>
+                    
                     <!--  Carousel - consult the Twitter Bootstrap docs at
       http://twitter.github.com/bootstrap/javascript.html#carousel -->
-                    <div id="this-carousel-id" class="carousel slide"><!-- class of slide for animation -->
+                    <!--<div id="this-carousel-id" class="carousel slide"><!-\- class of slide for animation -\->
                         <div class="carousel-inner">
-                            <div class="item active"><!-- class of active since it's the first item -->
+                            <div class="item active"><!-\- class of active since it's the first item -\->
                                 <img src="http://placehold.it/1200x480" alt="" />
                                 <div class="carousel-caption">
                                     <p>Caption text here</p>
@@ -64,13 +71,13 @@
                                     <p>Caption text here</p>
                                 </div>
                             </div>
-                        </div><!-- /.carousel-inner -->
-                        <!--  Next and Previous controls below
-        href values must reference the id for this carousel -->
+                        </div><!-\- /.carousel-inner -\->
+                        <!-\-  Next and Previous controls below
+        href values must reference the id for this carousel -\->
                         <a class="carousel-control left" href="#this-carousel-id" data-slide="prev">&lsaquo;</a>
                         <a class="carousel-control right" href="#this-carousel-id" data-slide="next">&rsaquo;</a>
-                    </div><!-- /.carousel -->
-                </div><!-- .span4 -->
+                    </div>--><!-- /.carousel -->
+                </div><!-- .span8 -->
                 
                 <div class="span8">
                     <h2>What the Universe Thinks!</h2>
@@ -80,5 +87,8 @@
                 
             </div><!-- .row -->
         </div><!-- .container -->
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/memex.js"></script> 
     </body>
 </html>
