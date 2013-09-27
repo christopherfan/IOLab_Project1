@@ -33,12 +33,18 @@ To run the API AJAX calls invoke the API Calls in the following manner:
 function getAllTags(username) {
     var tag_object;
     var url_html = "http://feeds.delicious.com/v2/json/tags/" + username+ '?callback=?';
-
-    $.getJSON(url_html,function (data) {
-        console.log(data);        
-        tag_object= data;
-    })
-    alert(tag_object);
+    
+        
+    
+    return getAllTags_APICall(username).pipe(function (data) {
+            var string_list = [];
+            $.each(data, function (i, val) {
+                string_list.push(i);
+            });
+           // alert(string_list);
+            return string_list;
+        });
+    
 }
 
 function getAllTags_APICall(username) {
@@ -60,19 +66,17 @@ function getAllTags_APICall(username) {
 
 
 function getURLs(username, tag_name) {
-    
-    var url_html = "http://feeds.delicious.com/v2/json/" + username + "/" + tag_name;
+           
+    return getURLs_APICall(username, tag_name).pipe(function (data) {
+        var url_list = [];
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].u);
+            url_list.push(data[i].u);
+        }
+        return url_list;
 
-    var url_list = [];
-    var deferred_object = getURLs_APICall(username, tag_name);    
-        deferred_object.done(function (data) {        
-            for (var i = 0; i < data.length; i++) {
-                console.log(data[i].u);
-                url_list.push(data[i].u);
-            }            
-            return url_list;
-        });            
-    
+    });
+
 }
 
 
@@ -94,8 +98,28 @@ function getURLs_APICall(username, tag_name){
     });
 }
 
+function getSuggestedTags(username, pass, url) {
+    return getSuggestedTags_API(username, pass, url).pipe(function (data) {
 
-function getSuggestedTags(username_input, password_input, url_name) {
+            //Return value of the AJAX call is XML
+            console.log(data.xml); //example xml created
+            var x2js = new X2JS(); // we are using the helper libray xml2json 
+            var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
+            //console.log(jsonObj.suggest.popular);// returns object array for popular tags
+            //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
+            // example for extracting items from object array
+            var string_list = [];
+            $.each(jsonObj.suggest.recommended, function (i, val) {
+                //console.log(val._tag);
+                string_list.push(val._tag);
+            });
+            return string_list;
+    });
+
+}
+
+
+function getSuggestedTags_API(username_input, password_input, url_name) {
     var deliciousData = {
         method: 'posts/suggest',
         url: url_name,

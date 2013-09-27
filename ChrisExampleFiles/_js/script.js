@@ -44,16 +44,12 @@ $(document).ready(function () {
     ///////////// Example using getAllTags_APICall ##getAllTags
     $(document).on('submit', "#tag_form", function () {
         var username = $("#tag_request_username").val();
-
-        getAllTags_APICall(username).done(function (data) {
-            var string_list = [];
-            $.each(data, function (i, val) {
-                string_list.push(i + "("+val+")");
-            });
-            
-            printList("#Elements",string_list);
+        
+        getAllTags(username).done(function (data) {
+            console.log(data);
+            printList("#Elements" ,data);
         });
-
+        
         return false;
     });
 
@@ -65,17 +61,12 @@ $(document).ready(function () {
         
 
         // This is the promise function using the get URL_APICall
-                
-        getURLs_APICall(username, tag_name).done(function (data) {
-            var url_list = []
-            for (var i = 0; i < data.length; i++) {
-               // console.log(data[i].u);
-                url_list.push(data[i].u);
-            }
-            console.log(url_list);
-            printList("#Elements",url_list);
+        
+        getURLs(username, tag_name).done(function (data) {
+            console.log(data);
+            printList("#Elements", data);
         });
-
+        
 
         return false;
     });
@@ -87,22 +78,27 @@ $(document).ready(function () {
         var pass = $("#popular_request_password").val();
         var url = $("#popular_request_url").val();
 
-        getSuggestedTags(username, pass, url).done(function (data) {
-            //Return value of the AJAX call is XML
-            console.log(data.xml); //example xml created
-            var x2js = new X2JS(); // we are using the helper libray xml2json 
-            var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
-            //console.log(jsonObj.suggest.popular);// returns object array for popular tags
-            //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
-            // example for extracting items from object array
-            var string_list = [];
-            $.each(jsonObj.suggest.recommended, function (i, val) {
-                //console.log(val._tag);
-                string_list.push(val._tag);
-            });
-            console.log(string_list);
-            printList("#Elements", string_list);
+        getSuggestedTags(username,pass , url).done(function (data) {
+            console.log(data);
+            printList("#Elements", data);
         });
+
+        //getSuggestedTags(username, pass, url).done(function (data) {
+        //    //Return value of the AJAX call is XML
+        //    console.log(data.xml); //example xml created
+        //    var x2js = new X2JS(); // we are using the helper libray xml2json 
+        //    var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
+        //    //console.log(jsonObj.suggest.popular);// returns object array for popular tags
+        //    //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
+        //    // example for extracting items from object array
+        //    var string_list = [];
+        //    $.each(jsonObj.suggest.recommended, function (i, val) {
+        //        //console.log(val._tag);
+        //        string_list.push(val._tag);
+        //    });
+        //    console.log(string_list);
+        //    printList("#Elements", string_list);
+        //});
 
         return false;
     });

@@ -32,17 +32,24 @@ To run the API AJAX calls invoke the API Calls in the following manner:
 
 function getAllTags(username) {
     var tag_object;
-    var url_html = "http://feeds.delicious.com/v2/json/tags/" + username + '?callback=?';
-
-    $.getJSON(url_html, function (data) {
-        console.log(data);
-        tag_object = data;
-    })
-    alert(tag_object);
+    var url_html = "http://feeds.delicious.com/v2/json/tags/" + username+ '?callback=?';
+    
+        
+    
+    return getAllTags_APICall(username).pipe(function (data) {
+            var string_list = [];
+            $.each(data, function (i, val) {
+                string_list.push(i);
+            });
+           // alert(string_list);
+            return string_list;
+        });
+    
 }
 
 function getAllTags_APICall(username) {
     var url_html = "http://feeds.delicious.com/v2/json/tags/" + username
+    
     return $.ajax({
         type: "GET",
         dataType: "jsonp",
@@ -59,23 +66,21 @@ function getAllTags_APICall(username) {
 
 
 function getURLs(username, tag_name) {
-
-    var url_html = "http://feeds.delicious.com/v2/json/" + username + "/" + tag_name;
-
-    var url_list = [];
-    var deferred_object = getURLs_APICall(username, tag_name);
-    deferred_object.done(function (data) {
+           
+    return getURLs_APICall(username, tag_name).pipe(function (data) {
+        var url_list = [];
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].u);
             url_list.push(data[i].u);
         }
         return url_list;
+
     });
 
 }
 
 
-function getURLs_APICall(username, tag_name) {
+function getURLs_APICall(username, tag_name){
 
     var url_html = "http://feeds.delicious.com/v2/json/" + username + "/" + tag_name;
     //console.log(url_html);
@@ -85,7 +90,7 @@ function getURLs_APICall(username, tag_name) {
         url: url_html,
         success: function (data) {
             //console.log(">>>>>");
-            //onsole.log(JSON.stringify(data));
+           //onsole.log(JSON.stringify(data));
             for (var i = 0; i < data.length; i++) {
                 //console.log(data[i]);			    
             }
@@ -93,22 +98,42 @@ function getURLs_APICall(username, tag_name) {
     });
 }
 
+function getSuggestedTags(username, pass, url) {
+    return getSuggestedTags_API(username, pass, url).pipe(function (data) {
 
-function getSuggestedTags(username_input, password_input, url_name) {
+            //Return value of the AJAX call is XML
+            console.log(data.xml); //example xml created
+            var x2js = new X2JS(); // we are using the helper libray xml2json 
+            var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
+            //console.log(jsonObj.suggest.popular);// returns object array for popular tags
+            //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
+            // example for extracting items from object array
+            var string_list = [];
+            $.each(jsonObj.suggest.recommended, function (i, val) {
+                //console.log(val._tag);
+                string_list.push(val._tag);
+            });
+            return string_list;
+    });
+
+}
+
+
+function getSuggestedTags_API(username_input, password_input, url_name) {
     var deliciousData = {
         method: 'posts/suggest',
         url: url_name,
         username: username_input,
-        password: password_input
+        password:password_input		        
     }
+    
 
-
-    return $.ajax({
+   return  $.ajax({
         url: 'delicious_proxy.php',
         type: 'post',
         data: deliciousData,
-        dataType: "jsonp",
-        success: function (data) {
+        dataType:"jsonp",
+        success: function (data) {                                    
             //console.log(data.xml);
             //var x2js = new X2JS();
             //var jsonObj = x2js.xml_str2json(data.xml);
@@ -124,7 +149,7 @@ function getSuggestedTags(username_input, password_input, url_name) {
 
 
 
-function addNewTagtoURL(usernname, password, url, new_nag) {
+function addNewTagtoURL(usernname, password, url, new_nag){
 
     var url_html = "http://feeds.delicious.com/v2/json/tags/" + username;
     var clone_entry;
@@ -144,7 +169,7 @@ function addNewTagtoURL(usernname, password, url, new_nag) {
 
     $.each(entries_list, function (i, val) {
         if (val.u == url) {
-            clone_entry = this;
+            clone_entry = this;          
         }
 
         //clone object
