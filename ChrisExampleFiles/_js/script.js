@@ -62,7 +62,7 @@ $(document).ready(function () {
 	//getAllTags();
 	//getTagResults('IOLab_Memex');
 	//postTag();
-    
+    recent();
 });
 
 
@@ -171,12 +171,46 @@ function postTag(input_object){
 		// success: function(data, textStatus, jqXHR){			
 			// console.log("Added " );
 		// },
-		// error: function(data, textStatus, jqXHR){
-			// console.log("$$$$$$$$$$$$$$");
-			// //console.log(JSON.stringify(data));
-		// }
+		 error: function(data, textStatus, jqXHR){
+			 console.log(data);
+			 //console.log(JSON.stringify(data));
+		 }
 		
 	});
+}
+
+
+function recent() {
+    console.log("Running Recent");
+    $.ajax({
+        type: "GET",
+        dataType: "jsonp",
+        dataFilter: function (response, type) {
+            console.log(response); // prints undefined
+            console.log(type); //prints "jsonp"
+        },
+        //jsonp: false,
+        
+        // jsonpCallback: function(data, status){
+        // console.log("!!!!!!!!!!!!!!!!!!!!!!");
+        // //console.log(JSON.stringify(data));
+        // },
+        url: "https://api.delicious.com/v1/posts/recent?callback=popUp",
+         success: function(data, textStatus, jqXHR){			
+         console.log("Added " );
+         },
+        error: function (data, textStatus, jqXHR) {
+            console.log(textStatus);
+            //console.log(JSON.stringify(data));
+        }
+
+    });
+}
+
+
+function popUp(data) {
+    alert("#########################");
+    console.log(data);
 }
 
 function deletePost(url_input){	
