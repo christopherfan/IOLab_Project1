@@ -2,14 +2,16 @@
 <html>
     <head>
         <meta charset="utf-8">
-            <title>With Bootstrap</title>
+            <title>IOLab | Memex</title>
             <link rel="stylesheet" href="css/bootstrap.min.css">
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-                <script src="js/bootstrap.min.js"></script>
+                <link rel="stylesheet" href="css/bootstrap.css">
+            <link rel="stylesheet" type="text/css" href="css/main.css" />
+              
+             
     </head>
     
     <body>
-        <p>IOLab | Memex</p>
+        
        
         <div class="container">
             
@@ -19,30 +21,47 @@
               
             </div><!-- .hero-unit -->
             <form id="load-bookmarks" method="get">
-                <h3 id="enter_a_delicious_username">Enter a Delicious Username:</h3>
+                <p id="enter_a_delicious_username">Enter Your Delicious Username:
                 <input type="text" name="username" id="username" value=""/>
-                <input type="submit" value="Get Bookmarks"/>
+                    <input type="submit" value="Get Bookmarks"/></p>
             </form>
             
+            
             <div class="row">
-                <div class="span4">
-                    <h2>Box Number 1</h2>
-                    <p><ul></ul></p>   <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                <!-- Tag Cloud to be displayed here -->
+                <div class="span9">
+                    <h2>My Tags</h2>
+                    <p></p>   
                 </div><!-- .span4 -->
                 
-                <div class="span4">
-                    <h2>Box Number 2</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">Click meeee &raquo;</a></p>
-                </div><!-- .span4 -->
+                <div class="span8">
+                    <h2>My Info Trail</h2>
+                    <div id="trails">
+                        <ul class="nav nav-pills nav-stacked inputs-list">
+                            <li><label class="control radio">
+                                <input type="radio" name="radio">
+                                    <span class="radio-label"> <a href="http://test.com">Test</a></span>
+                            </label></li>
+                            <li><label class="control radio">
+                                <input type="radio" name="radio">
+                                    <span class="radio-label"> <a href="#">Test</a></span>
+                            </label></li>
+                        </ul>
+                    </div>
+                    
+                   
                 
-                <div class="span4">
-                    <h2>Box Number 3</h2>
+                <div class="span8">
+                    <h2>What the Universe Thinks!</h2>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                    <input type="submit" class="btn btn-success active" value="Add This Tag"/>
                 </div><!-- .span4 -->
                 
             </div><!-- .row -->
         </div><!-- .container -->
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/memex.js"></script> 
+        <script src="js/DeliciousAPICalls.js"></script> 
     </body>
 </html>
