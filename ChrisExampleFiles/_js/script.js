@@ -14,10 +14,7 @@ $(document).ready(function () {
             printEntries("#Elements", data);
         });
 
-        //getAllEntries().then(function (data) {
-        //   printEntries("#Elements", data);         
-        //});         
-       // printEntries("Elements", entries);
+
     });
 
     $("#todo-form").submit(function () {
@@ -35,13 +32,63 @@ $(document).ready(function () {
         return false;
     });
 
+    //////////// Example using getURLs(username, tag_name)
+    $(document).on('submit', "#url_form", function () {
+        var tag_name = $("#url_request").val();
+        var username = $("#url_request_username").val();
+        var url_list =[]
 
-    $(document).on('submit', "#tag_form", function () {
-        getTagResults($("#tag_request").val()).then(function (data) {            
-            printEntries("#Elements", data);
+        // This is the promise function using the get URL_APICall
+        
+        var deferred_object = getURLs_APICall(username, tag_name);
+        deferred_object.done(function (data) {
+            for (var i = 0; i < data.length; i++) {
+               // console.log(data[i].u);
+                url_list.push(data[i].u);
+            }
+            console.log(url_list);
+            //printList("#Elements",url_list);
         });
+
+
         return false;
     });
+
+
+    //// How to get Popular Tags
+    $(document).on('submit', "#popular_form", function () {
+        var username = $("#popular_request_username").val();
+        var pass = $("#popular_request_password").val();
+        var url = $("#popular_request_url").val();
+
+        getSuggestedTags(username, pass, url).done(function (data) {
+            //Return value of the AJAX call is XML
+            console.log(data.xml); //example xml created
+            var x2js = new X2JS(); // we are using the helper libray xml2json 
+            var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
+            //console.log(jsonObj.suggest.popular);// returns object array for popular tags
+            //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
+            // example for extracting items from object array
+            var string_list = [];
+            $.each(jsonObj.suggest.recommended, function (i, val) {
+                //console.log(val._tag);
+                string_list.push(val._tag);
+            });
+            console.log(string_list);
+            printList("#Elements", string_list);
+        });
+
+        return false;
+    });
+
+    ///////////// Old code to fully print out full bookmarks per tag
+    //$(document).on('submit', "#tag_form", function () {
+    //    getTagResults($("#tag_request").val()).then(function (data) {            
+    //        printEntries("#Elements", data);
+    //    });
+    //    return false;
+    //});
+    /////////////////////////////
 
     $(document).on('click', "#shift_right", function () {    
         $("#carousel ul").animate({ marginLeft: -480 }, 10, function () {
@@ -61,10 +108,18 @@ $(document).ready(function () {
     //getAllEntries();
 	//getAllTags();
 	//getTagResults('IOLab_Memex');
-	//postTag();
-    recent();
-});
+    //postTag();
 
+    
+});
+function printList(body_div, entries) {
+    
+    $(body_div).html("");
+    jQuery.each(entries, function (i, val) {
+        $(body_div).append("<li>" + val + "</li>");
+    });
+
+}
 
 
 function printEntries(body_div,entries) {
@@ -83,14 +138,13 @@ function printEntries(body_div,entries) {
     jQuery.each(entries, function (i, val) {       
         html_injection = '<table class="entry_format" border="1">';
         iframe = '<div class="box"> <iframe src=' + val.u + ' width = "500px" height = "500px"></iframe> </div>';
-        url = "<tr>" + '<td>URL: </td> <td> <a href="' + val.u + '">' + val.u +"</a>"+iframe +"</td></tr>";
+        url = "<tr>" + '<td>URL: </td> <td> <a href="' + val.u + '">' + val.u +"</a>"+"</td></tr>";
         title = "<tr>" + "<td>Title: </td> <td>" + val.d + "</td></tr>";
         description = "<tr>" + "<td>Notes: </td> <td>" + val.n + "</td></tr>";
         tags = "<tr>" + "<td>Tags: </td> <td>" + val.t + "</td></tr>";
         html_injection = html_injection + title + url + description +tags+ "</table>";        
         $(body_div).append("<li>" + html_injection + "</li>");
-        //console.log(html_injection);       
-        
+        //console.log(html_injection);               
     });    
 }
 

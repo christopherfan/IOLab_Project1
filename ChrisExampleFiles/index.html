@@ -12,8 +12,10 @@
 
 
     <!-- link to javascript files -->
-    <script src="_js/jquery-1.10.2.min.js"></script>
+    <script src="http:///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
     <script src="_js/script.js"></script>    
+    <script src="_js/DeliciousAPICalls.js"></script>  
+    <script src="_js/xml2json.js"></script>  
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         
 
@@ -31,22 +33,37 @@
 							
 				<div class="row">                
 						<!-- the to-do list -->
-						<div class="col-md-2 ">							
-                            <form id="tag_form">
+						<div class="col-md-4 ">							
+                            <h3> Generate URLs</h3>
+                            <p> This form section takes in a username and tag and generates a list of associated urls. Look in console for example output</p>
+                            <form id="url_form">
+                                <label>Enter Username <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="url_request_username" id="url_request_username" type="text" placeholder="Enter Tag to Look up" value="superegoforever">
                                 <label>Enter Tag <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
-                                <input name="tag_request" id="tag_request" type="text" placeholder="Enter Tag to Look up">
+                                <input name="url_request" id="url_request" type="text" placeholder="Enter Tag to Look up" value="IOLab_Memex">
+                                <button id="submit_tag_button"> press me </button>
+                            </form>
+                            <br />
+                            <h3> Generate Popular</h3>
+                            <p> This form section takes in a username and tag and generates a list of associated urls. Look in console for example output</p>
+                            <form id="popular_form">
+                                <label>Enter Username <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="popular_request_username" id="popular_request_username" type="text" placeholder="Enter user" value="superegoforever">
+                                <label>Enter Password <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="popular_request_password" id="popular_request_password" type="password" placeholder="password" >
+                                <label>Enter URL <img src="_images/tooltip.gif" alt="" title="Enter an item to put into the to do list" /></label>
+                                <input name="popular_request_url" id="popular_request_url" type="text" placeholder="Enter URL" value="cnn.com">
                                 <button id="submit_tag_button"> press me </button>
                             </form>
 						</div>                    
-						<div class="col-md-5 " id="carousel">						
-                            <button id="shift_left"> Shift Left </button>
-                            <button id="shift_right"> Shift Right </button>
-                            <ul id="Elements">
-
-							</ul>
-						</div>                    
+						<!--<div class="col-md-5 " id="carousel">-->						
+                        <div class="col-md-4 " >
+                                <button id="shift_left"> Shift Left </button>
+                                <button id="shift_right"> Shift Right </button>
+                                <ul id="Elements"></ul>
+                            </div>                    
 						<!-- form to add an item to the list -->
-						<div class="col-md-5 ">
+						<div class="col-md-4 ">
                             <h3> Add New Entry</h3>
 							<form id="todo-form">
                                 <table>
