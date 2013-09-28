@@ -19,15 +19,18 @@ To run the API AJAX calls invoke the API Calls in the following manner:
     tag = string for tag name
     returns iterable list of urls
 
-3) getSuggestedTags(url)
+3) getSuggestedTags(username, password url)
+    username = string of username
+     password = string of password
     url = string representing url
     returns iterable list of tags
 
-4) addNewTagtoURL(url, new_tag)
-    url = string of url
+4) addNewTagtoURL(username, password,url, new_tag)
+    username = string of username
+    password = string of password
+    url = string of url required to find the bookmark associated 
     new_tag = string of the new tag
     
-
 */
 
 function getAllTags(username) {
@@ -149,15 +152,41 @@ function getSuggestedTags_API(username_input, password_input, url_name) {
 
 
 
-function addNewTagtoURL(usernname, password, url, new_nag){
+
+function addNewTagtoURL(username, password, url, new_tag) {
 
     var url_html = "http://feeds.delicious.com/v2/json/tags/" + username;
     var clone_entry;
-    // grab all entries     
-    var entries_list = ($.ajax({
+    getAllEntries(username).done(function (data) {
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+            //console.log("Comparing:" +data[i].u +" to>>>>>>>>>> " +url);
+            if (data[i].u == url) {
+                //alert("found");
+                //console.log(data[i]);                
+                addTagtoDelicious(username, password, data[i], new_tag);
+                break;
+            }
+        }
+    });
+}
+
+function generateNewTagList(list, new_tag) {
+
+    var tag_list = new_tag;
+    $.each(list, function (i, val) {
+        tag_list = tag_list + "," + val;
+    });
+    return tag_list;
+
+}
+
+function getAllEntries(username) {
+    var url_name = "http://feeds.delicious.com/v2/json/" + username + "?count=100";
+    return $.ajax({
         type: "GET",
         dataType: "jsonp",
-        url: url_html,
+        url: url_name,
         success: function (data) {
             //console.log(">>>>>" );
             //console.log(JSON.stringify(data));
@@ -165,22 +194,58 @@ function addNewTagtoURL(usernname, password, url, new_nag){
                 //console.log(data[i]);			    
             }
         }
-    })).then().val();
-
-    $.each(entries_list, function (i, val) {
-        if (val.u == url) {
-            clone_entry = this;          
-        }
-
-        //clone object
-
-        //delete old entry
-
-        //add new entry
-
     });
+}
 
+function addTagtoDelicious(username_input, password_input, input_object, new_tag) {
+    var newTagList = generateNewTagList(input_object.t, new_tag);
+
+    var deliciousData = {
+        username: username_input,
+        password: password_input,
+        method: 'posts/add',
+        url: input_object.u,
+        description: input_object.d,
+        extended: input_object.n,
+        dt: input_object.dt,
+        tags: newTagList,
+        replace: "yes"
+    }
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(deliciousData);
+    $.ajax({
+        url: 'delicious_proxy.php',
+        type: 'post',
+        data: deliciousData,
+        dataType: "jsonp",
+        success: function (data) {
+            console.log("+++++++++++++++++");
+            //console.log(data);
+            if (data.result_code == "done") {
+                console.log("Bookmarks were successfully posted to delicious");
+            }
+        }, error: function (e) {
+            console.log(e);
+        }
+    });
 }
 
 
-
+function deleteEntry(url_input) {
+    var Json_Object = {
+        url: url_input,
+        method: "post/delete"
+    };
+    $.ajax({
+        type: "POST",
+        dataType: "jsonp",
+        data: Json_Object,
+        url: 'delicious_proxy.php',
+        success: function () {
+            console.log("Deleted: ");
+        },
+        error: function () {
+            console.log("Delete Error >>>>>>");
+        }
+    });
+}

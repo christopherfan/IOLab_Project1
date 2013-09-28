@@ -32,7 +32,8 @@ $(document).ready(function () {
             values[field.name] = field.value;
         });
         
-        postTag(values);
+        // postTag(values);
+        addNewTagtoURL(values.username_input, values.password_input, values.url_input, values.tags_input)
 		return false;
     });
 
@@ -126,12 +127,14 @@ $(document).ready(function () {
         })
     });
 
+    /// Trigger functions to test code
 	//requestEntry();	    
     //getAllEntries();
 	//getAllTags();
 	//getTagResults('IOLab_Memex');
     //postTag();
 
+    
     
 });
 function printList(body_div, entries) {
@@ -232,7 +235,9 @@ function postTag(input_object){
 	    url: input_object.url_input,
 	    extended:input_object.notes_input,
 		description: input_object.title_input,
-		tags: input_object.tags_input
+		tags: input_object.tags_input,
+
+
 	};
 	$.ajax({ 
 		type: "GET",
@@ -284,10 +289,7 @@ function recent() {
 }
 
 
-function popUp(data) {
-    alert("#########################");
-    console.log(data);
-}
+
 
 function deletePost(url_input){	
 	var Json_Object = {
