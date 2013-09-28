@@ -44,11 +44,13 @@ function generateBookmarkListItem(markObj) {
 
 */
 
+//<EventHandler1: Get Tags from User> by Derek
+
+
 function printTagList(body_div, entries) {
-    
     $(body_div).html("");    
     jQuery.each(entries, function (i, val) {
-        $(body_div).append("<li><a href=" +val+ "><span class='tags'>" + val + "</span></a></li>");
+        $(body_div).append("<li><a href="+ val + ">" + val + "</a></li>");
     });
 };
 
@@ -62,47 +64,31 @@ $(document).on('submit', "#load_bookmarks", function () {
         return false;
 });
 
+//</EventHandler1: Get Tags from User>
 
-/*
+//<EventHandler2: Get Urls from Tag> by Derek
 
- $(document).on('submit', "#load_bookmarks", function () {
-        var username = $("#username").val();
-
-        var string_list = [];
-        getAllTags(username).done(function (data) {
-            alert("done");
-            $.each(data, function (i, val) {
-//            $( ".span9" ).append( '<p>'+'<a href="getURLs(username,'+ i+');" id="tag">'+i+'</a>'+'('+val+')'+'</p>');
-           
-$('.span9 .bookmarks p').append('  <span id="add_here">'+i+'('+val+')</span>');
-            });
-            
-            
-            
-            
-        });
-
-        return false;
+function printUrlList(body_div, entries) {
+    $(body_div).html("");    
+    jQuery.each(entries, function (i, val) {
+        $(body_div).append("<li><a href="+ val + ">" + val + "</a></li>");
     });
-*/
+};
 
-// <Derek's code>
-/*
-$('.span9 #tag_trails a').on('click', funtion() {
-  tag_name=$(this).attr('href');
-  getURLs(username, tag_name).done(function (data){
-    $.each(data, function(i,val){
 
-    });
+$(document).on('click', ".span9 #tag_trails a", function(){
+  var tag_name = $(this).attr('href');
+  var username = $("#username").val();
+  getURLs(username, tag_name).done(function (data) {
+    console.log(data);
+    printUrlList(".span8 #trails ul", data);
   });
   return false
 });
-*/
 
 
 
-
-// </Derek's code>
+// </EventHandler2: Get Urls from Tag>
 
 
 
