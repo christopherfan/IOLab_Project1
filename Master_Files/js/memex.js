@@ -16,6 +16,7 @@ var url_name;
 var tag_name;
 /*-------------End of Var Definition-----------------*/
 
+/*
 
 $('#load_bookmarks').submit(function(e) {
 
@@ -36,17 +37,39 @@ $('#load_bookmarks').submit(function(e) {
 
 function generateBookmarkListItem(markObj) {
 
-            var listItem = $('<li><a href="' + markObj. + '"><span class="tags">' + markObj.t + '</span></a></li>');
+            var listItem = $('<li><a href="' + markObj.t + '"><span class="tags">' + markObj.t + '</span></a></li>');
             return listItem;
 
 }
 
+*/
+
+function printTagList(body_div, entries) {
+    
+    $(body_div).html("");    
+    jQuery.each(entries, function (i, val) {
+        $(body_div).append("<li><a href=" +val+ "><span class='tags'>" + val + "</span></a></li>");
+    });
+};
+
+$(document).on('submit', "#load_bookmarks", function () {
+        var username = $("#username").val();
+        getAllTags(username).done(function (data) {
+            console.log(data);
+            printTagList(".span9 #tag_trails ul" ,data);
+        });
+        
+        return false;
+});
+
+
 /*
+
  $(document).on('submit', "#load_bookmarks", function () {
         var username = $("#username").val();
 
         var string_list = [];
-        getAllTags_APICall(username).done(function (data) {
+        getAllTags(username).done(function (data) {
             alert("done");
             $.each(data, function (i, val) {
 //            $( ".span9" ).append( '<p>'+'<a href="getURLs(username,'+ i+');" id="tag">'+i+'</a>'+'('+val+')'+'</p>');
