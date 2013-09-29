@@ -70,50 +70,23 @@ $('ul').delegate( 'li', 'click', function( event ){
   var username = $("#username").val();
   /*Child selector: http://api.jquery.com/child-selector*/
   var selectedUrl = $("ul.nav-stacked > li > a").attr('href');
-  console.log(selectedUrl);
-  console.log(username);
+  var pass = $("#popular_request_password").val();
+
   $("#btnSubmit").button().click(function(){
         console.log("you clicked a btn item!");
-        var password = "ruchita20";
         
-         getSuggestedTags(username, password, selectedUrl).done(function (data) {
-            console.log(data);
-            
-            
-        });
+        console.log(pass);
+        
         
         
     }); 
+    getSuggestedTags(username,pass, url).done(function (data) {
+            console.log(data);
+            printTagList("#suggestedTrails", data);
+        });
 });
 
-/*Helper functions*/
-function getSuggestedTagsTest(username, password_input, url_name) {
- var deliciousData = {
-        method: 'posts/suggest',
-        url: url_name,
-        username: username_input,
-        password:password_input		        
-    }
-   
-    
-    return  $.ajax({
-        url: 'http://courses.ischool.berkeley.edu/i290-iol/f12/resources/trailmaker/delicious_proxy.php?callback=?',
-        type: 'post',
-        data: deliciousData,
-        dataType:"jsonp",
-        success: function (data) {                                    
-            //console.log(data.xml);
-            //var x2js = new X2JS();
-            //var jsonObj = x2js.xml_str2json(data.xml);
-            //console.log(jsonObj.suggest.popular);
-            //console.log(jsonObj.suggest.recommended);
 
-        }, error: function (e) {
-            console.log(e);
-        }
-    });
-}
-/*Display all tags */
 
 
   });
