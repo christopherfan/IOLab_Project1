@@ -46,7 +46,7 @@ function printUrlList(body_div, entries) {
     $(body_div).html("");    
     jQuery.each(entries, function (i, val) {
     //Added a button element to the dynamically generated list for better UX.
-        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmit" type="submit" class="btn btn-success active" value="See More Trails"/></li>');
+        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmit" type="submit" class="btn btn-info btn-small active" value="See More Trails"/></li>');
        
     });
 };

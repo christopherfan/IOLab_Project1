@@ -14,25 +14,26 @@
         
        
         <div class="container">
+            <div class="page-header">
+                <h1>Memex <small>Delicious TrailBlazer</small></h1>
+            </div>
             
-            <div class="hero-unit">
-                <h2>Memex - Delicious TrailBlazer</h2>
-                
+            <div class="well"><form id="load_bookmarks" method="get">
               
-            </div><!-- .hero-unit -->
-            <form id="load_bookmarks" method="get">
-                <p id="tag_request_username">Enter Your Delicious Username:
-                <input type="text" name="username" id="username" value="iolab"/> Password: <input type="text" name="popular_request_password" id="popular_request_password" value="iolab"/>
-                    
-                     </p>
-                <input type="submit" value="Get My Trails"/>
-            </form>
+                <p id="tag_request_username"><b>Enter Your Delicious Credentials:</b> <br/>Username:
+                    <input type="text" name="username" id="username" value="iolab"/><br/>Password: <input type="text" name="popular_request_password" id="popular_request_password" value="iolab"/><br/>
+                    <input type="submit" value="Get My Tags"/>
+                </p>
+                
+            </form></div>
+            
             
             
             <div class="row">
                 <!-- Tags to be displayed here -->
                 <div class="span9">
                     <h2>My Tags</h2>
+                    <h4>Click on a tag to find your Info Trail</h4>
                     <div id="tag_trails">
                         <ul class="nav nav-pills">
                         </ul>
@@ -41,10 +42,10 @@
                 
                 <div class="span8">
                     <h2>My Info Trail</h2>
+                    <h4>Click "See More Trails" to view Universe's recommended set</h4>
                     <div id="trails">
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Test</a></li>
-                            <li><a href="#">Test</a></li>
+                            
                         </ul>
                     </div>
                     
@@ -88,7 +89,7 @@
                     <h2>What the Universe Thinks!</h2>
                     <div id="suggestedTrails">
                         <p></p>
-                        <input type="submit" class="btn btn-success active" value="Add This Tag"/>
+                        <input type="submit" class="btn btn-success active" value="Add This Recommended/Popular Tag"/>
                     </div> 
                 </div><!-- .span4 -->
                 
