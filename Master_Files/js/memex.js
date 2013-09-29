@@ -95,19 +95,12 @@ $(document).on('click', ".span9 #tag_trails a", function(){
 
 /*On the selected URL, get suggested tags*/
 
-$('.span8 #trails a').on('click', function() {
+
+$(".span8 #trails .nav .nav-pills .nav-stackedli a").on('click', function(e) {
+e.preventDefault();
 url_name=$(this).attr('href');
 alert(url_name);
-getSuggestedTags(username, url_name);
 return false;
-});
-
-$("input[name='radio']").change(function() {
-
-    url_name=$("a#trails").attr("href");
-alert(url_name);
-delicious = getSuggestedTags(username, url_name);
-console.log(delicious);
 });
 
 /*Helper functions*/
