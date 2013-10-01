@@ -70,17 +70,15 @@ $('ul').delegate( 'li', 'click', function( event ){
   var username = $("#username").val();
   /*Child selector: http://api.jquery.com/child-selector*/
   var selectedUrl = $("ul.nav-stacked > li > a").attr('href');
+  
   var pass = $("#popular_request_password").val();
 
   $("#btnSubmit").button().click(function(){
         console.log("you clicked a btn item!");
-        
-        console.log(pass);
-        
-        
+        console.log(selectedUrl);
         
     }); 
-    getSuggestedTags(username,pass, url).done(function (data) {
+    getSuggestedTags(username,pass, selectedUrl).done(function (data) {
             console.log(data);
             printTagList("#suggestedTrails", data);
         });
