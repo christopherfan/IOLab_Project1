@@ -51,6 +51,14 @@ function printUrlList(body_div, entries) {
     });
 };
 
+function printSuggestedTagsList(body_div, entries) {
+    $(body_div).html("");    
+    jQuery.each(entries, function (i, val) {
+    //Added a button element to the dynamically generated list for better UX.
+        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmitTag" type="submit" class="btn btn-info btn-mini active" value="Add This Tag"/></li>');
+       
+    });
+};
 
 $(document).on('click', ".span9 #tag_trails a", function(){
   var tag_name = $(this).attr('href');
@@ -84,7 +92,22 @@ $('ul').delegate( 'li', 'click', function( event ){
         });
 });
 
+/*EventHandler 4: Add New Tag to the URL - Ruchita*/
 
+$('ul').delegate( 'li', 'click', function( event ){
+  console.log( 'you clicked on a list item!' );
+  selectedTag = $("ul.nav-stacked > li > a").attr('href');
+  console.log(selectedTag);
+      $("#btnSubmitTag").button().click(function(){
+        console.log("you clicked a btn item!");
+        addNewTagtoURL(username_input, pass, selectedUrl, selectedTag);
+        
+    });
+        
+        // postTag(values);
+        
+		return false;
+    });
 
 
   });
