@@ -68,7 +68,7 @@ $(document).ready(function () {
         getURLs(username, tag_name).done(function (data) {
             //console.log(":-)");
             //console.log(data);
-            printList("#Elements", data);
+            printURLs("#Elements", data);
         })
         //.fail( function (data){            
         //        console.log("Bad username");
@@ -142,7 +142,42 @@ $(document).ready(function () {
 	//getTagResults('IOLab_Memex');
     //postTag();
 
+  //  $(document).on('mouseover', "a[href]", function () {
+  //      console.log("this is something");
     
+    
+  //  //$('a[href]').each(function () {
+  //      var elem = $(this);
+
+  //      // Grab the URL from our link
+  //      var url = encodeURIComponent($(this).attr('href')),
+  //          apiKey = 'T0p961TPD1ok', // Please don't abuse my API key - get your own for free here: http://www.websnapr.com/free_services/
+  //          thumbail;
+
+  //      // Create image thumbnail using Websnapr thumbnail service
+  //      thumbnail = $('<img />', {
+  //          src: 'http://images.websnapr.com/?url=' + url + '&key=' + apiKey + '&hash=' + encodeURIComponent(websnapr_hash),
+  //          alt: 'Loading thumbnail...',
+  //          width: 202,
+  //          height: 152
+  //      });
+
+  //      // Setup the tooltip with the content
+  //      elem.qtip({
+  //          content: thumbnail,
+  //          position: {
+  //              at: 'top center',
+  //              my: 'bottom center'
+  //          },
+  //          style: {
+  //              classes: 'websnapr qtip-blue'
+  //          }
+  //      });
+  ////  });
+
+  //  });
+
+
     
 });
 function printList(body_div, entries) {
@@ -150,6 +185,18 @@ function printList(body_div, entries) {
     $(body_div).html("");    
     jQuery.each(entries, function (i, val) {
         $(body_div).append("<li>" + val + "</li>");
+    });
+
+}
+
+function printURLs(body_div, entries) {
+
+    
+
+    $(body_div).html("");
+    jQuery.each(entries, function (i, val) {
+        var text = '<a " href="' + val + '">' + val + "</a>";
+        $(body_div).append("<li>" + text + "</li>");
     });
 
 }

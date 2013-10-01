@@ -85,3 +85,20 @@ a:hover + .box,.box:hover{
         list-style: none;
         float:  left;
     }
+
+}
+
+a[data-coords]{
+    cursor: pointer;
+}
+
+.qtip.googlemap{ max-width: none; }
+
+.qtip.googlemap .qtip-content{
+    padding: 0;
+}
+
+.qtip.googlemap .loading{
+    text-align: center;
+    line-height: 210px;
+}
