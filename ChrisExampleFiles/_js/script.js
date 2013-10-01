@@ -33,7 +33,7 @@ $(document).ready(function () {
         });
         
         // postTag(values);
-        addNewTagtoURL(values.username_input, values.password_input, values.url_input, values.tags_input)
+        addNewTagtoURL(values.username_input, values.password_input, values.url_input, values.tags_input);
 		return false;
     });
 

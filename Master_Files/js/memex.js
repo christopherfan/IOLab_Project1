@@ -70,7 +70,7 @@ $('ul').delegate( 'li', 'click', function( event ){
   var username = $("#username").val();
   /*Child selector: http://api.jquery.com/child-selector*/
   var selectedUrl = $("ul.nav-stacked > li > a").attr('href');
-  
+  selectedUrl = $(this).text();
   var pass = $("#popular_request_password").val();
 
   $("#btnSubmit").button().click(function(){
