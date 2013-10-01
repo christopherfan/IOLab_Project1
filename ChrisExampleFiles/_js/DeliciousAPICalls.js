@@ -39,17 +39,19 @@ function getAllTags(username) {
     return getAllTags_APICall(username).pipe(
         function (data) {
             var string_list = [];
-            $.each(data, function (i, val) {
-                string_list.push(i);
-            });
-           // alert(string_list);
+            console.log($.type(data));
+            if ($.type(data) !== "array") {                                
+                $.each(data, function (i, val) {
+                    string_list.push(i);
+                });
+                // alert(string_list);
+            }
             return string_list;
         }
-        //, function (data) {
-        //    console.log("ADSFASFDSAFSAFD");
-        //    alert("!!!!!!!!!!!!!!");
-        //    return ["There is nothing here"];
-        //}
+        , function (data) {
+            console.log("API Call Failed");
+            return [];
+        }
         );
     
 }
@@ -61,7 +63,7 @@ function getAllTags_APICall(username) {
         type: "GET",
         dataType: "jsonp",
         url: url_html,
-        //timeout: 2000,
+        timeout: 2000,
         success: function (data) {
             //console.log(">>>>>" );
             //console.log(JSON.stringify(data));
@@ -69,14 +71,14 @@ function getAllTags_APICall(username) {
                 //console.log(data[i]);			    
             }
         }
-        //error: function () {
-        //    console.log("API Call Failed");
-        //},
-        //statusCode: {
-        //    404: function () {
-        //        alert("page not found");
-        //    }
-        //}
+        ,error: function () {
+            console.log("API Call Failed");
+        },
+        statusCode: {
+            404: function () {
+                alert("page not found");
+            }
+        }
     });
 }
 
@@ -86,13 +88,19 @@ function getURLs(username, tag_name) {
            
     return getURLs_APICall(username, tag_name).pipe(function (data) {
         var url_list = [];
+        console.log(">>> in getURL");
+        console.log(data.length);
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].u);
             url_list.push(data[i].u);
         }
         return url_list;
+    }
+    , function (data) {        
+        return [];
+    }
 
-    });
+    );
 
 }
 
@@ -105,16 +113,17 @@ function getURLs_APICall(username, tag_name){
         type: "GET",
         dataType: "jsonp",
         url: url_html,
-        //timeout: 500,
+        timeout: 1000,
         success: function (data) {
             //console.log(">>>>>");
-            //onsole.log(JSON.stringify(data));
+            //console.log(data);
+            //console.log(JSON.stringify(data));
             for (var i = 0; i < data.length; i++) {
                 //console.log(data[i]);			    
             }
         },
         error: function (data) {
-                console.log("Delicious API Call Failed. Username has no values.")
+                console.log("Delicious API Call Failed. Bad username.")
         }
         , statusCode: {
             404: function () {

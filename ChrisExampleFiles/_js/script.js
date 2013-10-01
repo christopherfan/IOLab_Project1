@@ -47,11 +47,10 @@ $(document).ready(function () {
         var username = $("#tag_request_username").val();
         var deferred_object = getAllTags(username);        
         deferred_object.done(function (data) {            
-            console.log(data);
+            //console.log("Getting the strings");
+            //console.log(data);
             printList("#Elements" ,data);
-        });
-        
-        deferred_object.fail(function () {
+        }).fail(function () {
             alert("ADSFASF#################");
         });
         return false;
@@ -67,12 +66,15 @@ $(document).ready(function () {
         // This is the promise function using the get URL_APICall
         
         getURLs(username, tag_name).done(function (data) {
-            console.log(data);
+            //console.log(":-)");
+            //console.log(data);
             printList("#Elements", data);
-        }
-        , function () { alert("%%%%%%%%%%%%%%%%%%%");}
-        
-        );
+        })
+        //.fail( function (data){            
+        //        console.log("Bad username");
+        //        console.log(data);                   
+        //})
+        ;
         
 
         return false;

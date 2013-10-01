@@ -19,44 +19,51 @@ To run the API AJAX calls invoke the API Calls in the following manner:
     tag = string for tag name
     returns iterable list of urls
 
-3) getSuggestedTags(username, password url)
-    username = string of username
-     password = string of password
+3) getSuggestedTags(username, password, url)
     url = string representing url
     returns iterable list of tags
 
-4) addNewTagtoURL(username, password,url, new_tag)
-    username = string of username
-    password = string of password
-    url = string of url required to find the bookmark associated 
+4) addNewTagtoURL(username, password, url, new_tag)
+    url = string of url
     new_tag = string of the new tag
     
+
 */
 
 function getAllTags(username) {
     var tag_object;
-    var url_html = "http://feeds.delicious.com/v2/json/tags/" + username+ '?callback=?';
-    
-        
-    
-    return getAllTags_APICall(username).pipe(function (data) {
+    var url_html = "http://feeds.delicious.com/v2/json/tags/" + username + '?callback=?';
+
+
+
+    return getAllTags_APICall(username).pipe(
+        function (data) {
             var string_list = [];
-            $.each(data, function (i, val) {
-                string_list.push(i);
-            });
-           // alert(string_list);
+            console.log($.type(data));
+            if ($.type(data) !== "array") {
+                $.each(data, function (i, val) {
+                    string_list.push(i);
+                });
+                // alert(string_list);
+            }
             return string_list;
-        });
-    
+        }
+        , function (data) {
+            console.log("API Call Failed");
+            return [];
+        }
+        );
+
 }
 
 function getAllTags_APICall(username) {
     var url_html = "http://feeds.delicious.com/v2/json/tags/" + username
-    
+
     return $.ajax({
         type: "GET",
         dataType: "jsonp",
         url: url_html,
+        timeout: 2000,
         success: function (data) {
             //console.log(">>>>>" );
             //console.log(JSON.stringify(data));
@@ -64,26 +71,41 @@ function getAllTags_APICall(username) {
                 //console.log(data[i]);			    
             }
         }
+        , error: function () {
+            console.log("API Call Failed");
+        },
+        statusCode: {
+            404: function () {
+                alert("page not found");
+            }
+        }
     });
 }
 
 
+
 function getURLs(username, tag_name) {
-           
+
     return getURLs_APICall(username, tag_name).pipe(function (data) {
         var url_list = [];
+        console.log(">>> in getURL");
+        console.log(data.length);
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].u);
             url_list.push(data[i].u);
         }
         return url_list;
+    }
+    , function (data) {
+        return [];
+    }
 
-    });
+    );
 
 }
 
 
-function getURLs_APICall(username, tag_name){
+function getURLs_APICall(username, tag_name) {
 
     var url_html = "http://feeds.delicious.com/v2/json/" + username + "/" + tag_name;
     //console.log(url_html);
@@ -91,34 +113,46 @@ function getURLs_APICall(username, tag_name){
         type: "GET",
         dataType: "jsonp",
         url: url_html,
+        timeout: 1000,
         success: function (data) {
             //console.log(">>>>>");
-           //onsole.log(JSON.stringify(data));
+            //console.log(data);
+            //console.log(JSON.stringify(data));
             for (var i = 0; i < data.length; i++) {
                 //console.log(data[i]);			    
             }
+        },
+        error: function (data) {
+            console.log("Delicious API Call Failed. Bad username.")
         }
+        , statusCode: {
+            404: function () {
+                alert("page not found");
+            }
+        }
+
     });
 }
 
 function getSuggestedTags(username, pass, url) {
     return getSuggestedTags_API(username, pass, url).pipe(function (data) {
 
-            //Return value of the AJAX call is XML
-            console.log(data.xml); //example xml created
-            var x2js = new X2JS(); // we are using the helper libray xml2json 
-            var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
-            //console.log(jsonObj.suggest.popular);// returns object array for popular tags
-            //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
-            // example for extracting items from object array
-            var string_list = [];
-            if(jsonObj.suggest != null){
+        //Return value of the AJAX call is XML
+        console.log(data.xml); //example xml created
+        var x2js = new X2JS(); // we are using the helper libray xml2json 
+        var jsonObj = x2js.xml_str2json(data.xml); // parse the xml into JSON
+        //console.log(jsonObj.suggest.popular);// returns object array for popular tags
+        //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
+        // example for extracting items from object array
+        var string_list = [];
+        console.log(jsonObj);
+        if (jsonObj.suggest != null) {
             $.each(jsonObj.suggest.recommended, function (i, val) {
                 //console.log(val._tag);
                 string_list.push(val._tag);
             });
-            }
-            return string_list;
+        }
+        return string_list;
     });
 
 }
@@ -129,16 +163,16 @@ function getSuggestedTags_API(username_input, password_input, url_name) {
         method: 'posts/suggest',
         url: url_name,
         username: username_input,
-        password:password_input		        
+        password: password_input
     }
-    
 
-   return  $.ajax({
+
+    return $.ajax({
         url: 'delicious_proxy.php',
         type: 'post',
         data: deliciousData,
-        dataType:"jsonp",
-        success: function (data) {                                    
+        dataType: "jsonp",
+        success: function (data) {
             //console.log(data.xml);
             //var x2js = new X2JS();
             //var jsonObj = x2js.xml_str2json(data.xml);
@@ -151,7 +185,6 @@ function getSuggestedTags_API(username_input, password_input, url_name) {
     });
 
 }
-
 
 
 
