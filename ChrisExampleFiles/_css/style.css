@@ -15,7 +15,7 @@
 #bucket {
 	margin: 40px auto;
 	overflow: hidden;
-	width: 1200px;
+	width: 100%;
 }
 
 .column_temp{

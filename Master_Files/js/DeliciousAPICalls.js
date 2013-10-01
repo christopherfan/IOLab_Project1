@@ -112,10 +112,12 @@ function getSuggestedTags(username, pass, url) {
             //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
             // example for extracting items from object array
             var string_list = [];
+            if(jsonObj.suggest != null){
             $.each(jsonObj.suggest.recommended, function (i, val) {
                 //console.log(val._tag);
                 string_list.push(val._tag);
             });
+            }
             return string_list;
     });
 

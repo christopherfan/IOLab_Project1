@@ -36,14 +36,21 @@ function getAllTags(username) {
     
         
     
-    return getAllTags_APICall(username).pipe(function (data) {
+    return getAllTags_APICall(username).pipe(
+        function (data) {
             var string_list = [];
             $.each(data, function (i, val) {
                 string_list.push(i);
             });
            // alert(string_list);
             return string_list;
-        });
+        }
+        //, function (data) {
+        //    console.log("ADSFASFDSAFSAFD");
+        //    alert("!!!!!!!!!!!!!!");
+        //    return ["There is nothing here"];
+        //}
+        );
     
 }
 
@@ -54,6 +61,7 @@ function getAllTags_APICall(username) {
         type: "GET",
         dataType: "jsonp",
         url: url_html,
+        //timeout: 2000,
         success: function (data) {
             //console.log(">>>>>" );
             //console.log(JSON.stringify(data));
@@ -61,8 +69,17 @@ function getAllTags_APICall(username) {
                 //console.log(data[i]);			    
             }
         }
+        //error: function () {
+        //    console.log("API Call Failed");
+        //},
+        //statusCode: {
+        //    404: function () {
+        //        alert("page not found");
+        //    }
+        //}
     });
 }
+
 
 
 function getURLs(username, tag_name) {
@@ -88,13 +105,23 @@ function getURLs_APICall(username, tag_name){
         type: "GET",
         dataType: "jsonp",
         url: url_html,
+        //timeout: 500,
         success: function (data) {
             //console.log(">>>>>");
-           //onsole.log(JSON.stringify(data));
+            //onsole.log(JSON.stringify(data));
             for (var i = 0; i < data.length; i++) {
                 //console.log(data[i]);			    
             }
+        },
+        error: function (data) {
+                console.log("Delicious API Call Failed. Username has no values.")
         }
+        , statusCode: {
+            404: function () {
+                alert("page not found");
+            }
+        }        
+        
     });
 }
 
@@ -109,10 +136,13 @@ function getSuggestedTags(username, pass, url) {
             //console.log(jsonObj.suggest.recommended); //returns object array for recommended tags
             // example for extracting items from object array
             var string_list = [];
-            $.each(jsonObj.suggest.recommended, function (i, val) {
-                //console.log(val._tag);
-                string_list.push(val._tag);
-            });
+            console.log(jsonObj);
+            if (jsonObj.suggest != null) {
+                $.each(jsonObj.suggest.recommended, function (i, val) {
+                    //console.log(val._tag);
+                    string_list.push(val._tag);
+                });
+            }
             return string_list;
     });
 

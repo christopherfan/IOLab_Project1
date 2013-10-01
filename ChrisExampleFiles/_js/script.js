@@ -45,12 +45,15 @@ $(document).ready(function () {
     ///////////// Example using getAllTags_APICall ##getAllTags
     $(document).on('submit', "#tag_form", function () {
         var username = $("#tag_request_username").val();
-        
-        getAllTags(username).done(function (data) {
+        var deferred_object = getAllTags(username);        
+        deferred_object.done(function (data) {            
             console.log(data);
             printList("#Elements" ,data);
         });
         
+        deferred_object.fail(function () {
+            alert("ADSFASF#################");
+        });
         return false;
     });
 
@@ -66,7 +69,10 @@ $(document).ready(function () {
         getURLs(username, tag_name).done(function (data) {
             console.log(data);
             printList("#Elements", data);
-        });
+        }
+        , function () { alert("%%%%%%%%%%%%%%%%%%%");}
+        
+        );
         
 
         return false;
