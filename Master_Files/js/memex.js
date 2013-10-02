@@ -14,6 +14,8 @@ var username = $("#username").val();
 delicious = {};
 var url_name;
 var tag_name;
+var selectedUrl;
+var pass;
 /*-------------End of Var Definition-----------------*/
 
 
@@ -50,16 +52,6 @@ function printUrlList(body_div, entries) {
        
     });
 };
-
-function printSuggestedTagsList(body_div, entries) {
-    $(body_div).html("");    
-    jQuery.each(entries, function (i, val) {
-    //Added a button element to the dynamically generated list for better UX.
-        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmitTag" type="submit" class="btn btn-info btn-mini active" value="Add This Tag"/></li>');
-       
-    });
-};
-
 $(document).on('click', ".span9 #tag_trails a", function(){
   var tag_name = $(this).attr('href');
   var username = $("#username").val();
@@ -72,42 +64,55 @@ $(document).on('click', ".span9 #tag_trails a", function(){
 
 
 
-/*//<EventHandler3: On the selected URL, get suggested tags - Ruchita*/
-$('ul').delegate( 'li', 'click', function( event ){
-  console.log( 'you clicked on a list item!' );
-  var username = $("#username").val();
-  /*Child selector: http://api.jquery.com/child-selector*/
-  var selectedUrl = $("ul.nav-stacked > li > a").attr('href');
-  selectedUrl = $(this).text();
-  var pass = $("#popular_request_password").val();
 
-  $("#btnSubmit").button().click(function(){
+
+
+
+/*//<EventHandler3: On the selected URL, get suggested tags - Ruchita*/
+$('#trails ul').delegate( 'li', 'click', function( event ){
+  console.log( 'you clicked on a list item!' );
+  username = $("#username").val();
+  /*Child selector: http://api.jquery.com/child-selector*/
+  console.log($(this).text());
+  selectedUrl = $(this).text();
+  pass = $("#popular_request_password").val();
+
+  $("ul.nav-stacked > li > #btnSubmit").button().click(function(){
         console.log("you clicked a btn item!");
         console.log(selectedUrl);
         
     }); 
     getSuggestedTags(username,pass, selectedUrl).done(function (data) {
             console.log(data);
-            printTagList("#suggestedTrails", data);
+            printSuggestedTagsList("#suggestedTrails", data);
         });
 });
 
+function printSuggestedTagsList(body_div, entries) {
+    $(body_div).html("");    
+    jQuery.each(entries, function (i, val) {
+    //Added a button element to the dynamically generated list for better UX.
+        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmitTag" type="submit" class="btn btn-info btn-mini active" value="Add This Tag"/></li>');
+       
+    });
+};
+
 /*EventHandler 4: Add New Tag to the URL - Ruchita*/
 
-$('ul').delegate( 'li', 'click', function( event ){
+$('#suggestedTrailsList ul').delegate( 'li', 'click', function( event ){
   console.log( 'you clicked on a list item!' );
-  selectedTag = $("ul.nav-stacked > li > a").attr('href');
+  selectedTag = $("div#suggestedTrails > ul > li > a").attr('href');
   console.log(selectedTag);
+  console.log(selectedUrl);
+  console.log(username);
+  console.log(pass);
       $("#btnSubmitTag").button().click(function(){
         console.log("you clicked a btn item!");
-        addNewTagtoURL(username_input, pass, selectedUrl, selectedTag);
-        
-    });
-        
-        // postTag(values);
-        
+        addNewTagtoURL(username, pass, selectedUrl, selectedTag);
+        });        
 		return false;
     });
+
 
 
   });
