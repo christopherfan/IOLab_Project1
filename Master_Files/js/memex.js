@@ -71,17 +71,10 @@ $(document).on('click', ".span9 #tag_trails a", function(){
 /*//<EventHandler3: On the selected URL, get suggested tags - Ruchita*/
 $('#trails ul').delegate( 'li', 'click', function( event ){
   console.log( 'you clicked on a list item!' );
-  username = $("#username").val();
-  /*Child selector: http://api.jquery.com/child-selector*/
-  console.log($(this).text());
   selectedUrl = $(this).text();
   pass = $("#popular_request_password").val();
-
-  $("ul.nav-stacked > li > #btnSubmit").button().click(function(){
-        console.log("you clicked a btn item!");
-        console.log(selectedUrl);
-        
-    }); 
+  console.log(selectedUrl);
+  console.log("Fetching Recommended Tags from the Universe");
     getSuggestedTags(username,pass, selectedUrl).done(function (data) {
             console.log(data);
             printSuggestedTagsList("#suggestedTrails", data);
@@ -110,19 +103,6 @@ $( "#suggestedTrails" ).click(function() {
 		return false;
 });
 
-$('div#suggestedTrails  ').delegate( 'li', 'click', function( event ){
-  console.log( 'you clicked on a list item!' );
-  selectedTag = $("div#suggestedTrails > ul > li > a").attr('href');
-  console.log(selectedTag);
-  console.log(selectedUrl);
-  console.log(username);
-  console.log(pass);
-      $("#btnSubmitTag").button().click(function(){
-        console.log("you clicked a btn item!");
-        addNewTagtoURL(username, pass, selectedUrl, selectedTag);
-        });        
-		return false;
-    });
 
 
 
