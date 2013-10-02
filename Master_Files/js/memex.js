@@ -92,14 +92,25 @@ function printSuggestedTagsList(body_div, entries) {
     $(body_div).html("");    
     jQuery.each(entries, function (i, val) {
     //Added a button element to the dynamically generated list for better UX.
-        $(body_div).append('<li><a href='+ val + '>' + val + '</a><input id = "btnSubmitTag" type="submit" class="btn btn-info btn-mini active" value="Add This Tag"/></li>');
+    
+        $(body_div).append('<p>'+ val + '<input id = "btnSubmitTag" type="submit" class="btn btn-info btn-mini active" value="Add This Tag"/></p>');
        
     });
 };
 
 /*EventHandler 4: Add New Tag to the URL - Ruchita*/
+$( "#suggestedTrails" ).click(function() {
+  console.log( "Handler for .click() called." );
+  selectedTag = $("#suggestedTrails > p").text();
+  console.log(selectedTag);
+  $("#btnSubmitTag").button().click(function(){
+        console.log("you clicked a btn item!");
+        addNewTagtoURL(username, pass, selectedUrl, selectedTag);
+        });        
+		return false;
+});
 
-$('#suggestedTrailsList ul').delegate( 'li', 'click', function( event ){
+$('div#suggestedTrails  ').delegate( 'li', 'click', function( event ){
   console.log( 'you clicked on a list item!' );
   selectedTag = $("div#suggestedTrails > ul > li > a").attr('href');
   console.log(selectedTag);
